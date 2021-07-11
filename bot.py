@@ -1,8 +1,12 @@
 import os
+import discord
 import bot_commands
 from discord.ext import commands
+from dotenv import load_dotenv
 
 bot = commands.Bot(command_prefix='$')
+load_dotenv('.env')
+TOKEN = os.getenv('TOKEN')
 
 
 @bot.event
@@ -41,5 +45,4 @@ async def commands(ctx):
                    'record + [name] = Win/Loss Totals\n'
                    'averages + [name] = Performance Averages(Last 5 Games)')
 
-
-bot.run('ODEzODQwNjYxNzQ3ODU5NDY2.YDVKLg.dKSA_Mj8bO_9Zj7CQjKPvL5zx3M')
+bot.run(TOKEN)
