@@ -46,7 +46,8 @@ def get_player_averages(player_id):
         deaths = [r[0]['deaths'], r[1]['deaths'], r[2]['deaths'], r[3]['deaths'], r[4]['deaths']]
         assists = [r[0]['assists'], r[1]['assists'], r[2]['assists'], r[3]['assists'], r[4]['assists']]
         xpm = [r[0]['xp_per_min'], r[1]['xp_per_min'], r[2]['xp_per_min'], r[3]['xp_per_min'], r[4]['xp_per_min']]
-        gpm = [r[0]['gold_per_min'], r[1]['gold_per_min'], r[2]['gold_per_min'], r[3]['gold_per_min'], r[4]['gold_per_min']]
+        gpm = [r[0]['gold_per_min'], r[1]['gold_per_min'], r[2]['gold_per_min'], r[3]['gold_per_min'],
+               r[4]['gold_per_min']]
         last_hits = [r[0]['last_hits'], r[1]['last_hits'], r[2]['last_hits'], r[3]['last_hits'], r[4]['last_hits']]
         duration = [r[0]['duration'], r[1]['duration'], r[2]['duration'], r[3]['duration'], r[4]['duration']]
 
@@ -60,3 +61,19 @@ LH: {round(mean(last_hits))}
 Match Duration: {round(mean(duration) / 60)} mins"""
     else:
         return 'Invalid Response. Type $commands for help.'
+
+
+def get_game_avg(player_id):
+    name = player_id.lower()
+    if name in players:
+        r = requests.get(f' https://api.opendota.com/api/players/{players[name]}'
+                         f'/recentMatches?api_key={api_key}').text
+        data = json.loads(r)
+        print(data)
+        test_list = []
+        for x in data:
+            test_list.append(x['kills'])
+            print(test_list)
+
+
+
