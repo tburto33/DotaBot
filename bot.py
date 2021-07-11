@@ -1,5 +1,4 @@
 import os
-import discord
 import bot_commands
 from discord.ext import commands
 from dotenv import load_dotenv
