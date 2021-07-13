@@ -10,7 +10,7 @@ players = {
     "dan": "77947110",
     "elly": "91301985",
     "justin": "121774797",
-    "kellen": "60514922"
+    "kellen": "60514922",
 }
 
 
@@ -19,7 +19,7 @@ def get_dota_mmr(user_id):
     if name in players:
         r = requests.get(f'https://api.opendota.com/api/players/{players[name]}').json()
         data = r['mmr_estimate']
-        return f"Your Esimtated MMR is : {str(data['estimate'])}"
+        return f"Your Estimated MMR is : {str(data['estimate'])}"
     else:
         return "Invalid Response. Type $commands for help."
 
@@ -67,13 +67,35 @@ def get_game_avg(player_id):
     name = player_id.lower()
     if name in players:
         r = requests.get(f' https://api.opendota.com/api/players/{players[name]}'
-                         f'/recentMatches?api_key={api_key}').text
-        data = json.loads(r)
-        print(data)
-        test_list = []
-        for x in data:
-            test_list.append(x['kills'])
-            print(test_list)
+                         f'/recentMatches?api_key={api_key}')
+        data = json.loads(r.text)
+        values = 0
+        for key in data:
+            values += key['kills']
+        avg = values / len(data)
+        print(round(avg))
+
+
+def get_kda_average(player_id):
+    name = player_id.lower()
+    if name in players:
+        r = requests.get(f' https://api.opendota.com/api/players/{players[name]}'
+                         f'/recentMatches?api_key={api_key}').json()
+        data_length = len(r)
+        kills = 0
+        deaths = 0
+        assists = 0
+        for key in r:
+            kills += key['kills']
+            deaths += key['deaths']
+            assists += key['assists']
+        kills_avg = round(kills / data_length)
+        deaths_avg = round(deaths / data_length)
+        assists_avg = round(deaths / data_length)
+        return f'Your average KDA is: {kills_avg}/{deaths_avg}/{assists_avg}'
+
+
+
 
 
 
