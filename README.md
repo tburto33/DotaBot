@@ -16,7 +16,7 @@ it will pull data from the OpenDoTA API specific to that person. Mainly it pulls
 - Average Wards Placed
 - Most commonly played hero
 
-###Info:
+### Info:
 - **Languages**: Python
 - **Libraries**: Requests, JSON
 - **API's**: [Discord](https://discord.com/developers/docs/intro), [OpenDota](https://docs.opendota.com/)
